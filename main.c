@@ -33,17 +33,17 @@ int main(void)
     while (1) 
     {
 		//Request DHT sensor to give it time to prepare data
-		dhtxxconvert( DHTXX_DHT11, &PORTD, &DDRD, &PIND, ( 1 << 1 ) );
+		dhtxxconvert( DHTXX_DHT11, &PORTD, &DDRD, &PIND, ( 1 << 6 ) );
 		
 		_delay_ms(1000);
 
 		//Read data from sensor to variables `temp` and `humid` (`ec` is exit code)
-		ec = dhtxxread( DHTXX_DHT11, &PORTD, &DDRD, &PIND, ( 1 << 1 ), &temp, &humid );
+		ec = dhtxxread( DHTXX_DHT11, &PORTD, &DDRD, &PIND, ( 1 << 6 ), &temp, &humid );
 		try_time = try_time+1;
 		cmd_LCD(0x80,0);
 		printf("Erro: %d Try:%d", ec, try_time);
 		cmd_LCD(0xC0,0);
-		printf("Temp: %d *C",temp);
+		printf("Temp: %dC",temp);
 		_delay_ms(2000);
     }
 }

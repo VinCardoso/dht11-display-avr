@@ -3,23 +3,23 @@ versao_git.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         0000002a  00800100  00000a8c  00000b20  2**0
+  0 .data         00000028  00800100  00000a8c  00000b20  2**0
                   CONTENTS, ALLOC, LOAD, DATA
   1 .text         00000a8c  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000006  0080012a  0080012a  00000b4a  2**0
+  2 .bss          00000006  00800128  00800128  00000b48  2**0
                   ALLOC
-  3 .comment      0000005c  00000000  00000000  00000b4a  2**0
+  3 .comment      0000005c  00000000  00000000  00000b48  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000ba8  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000ba4  2**2
                   CONTENTS, READONLY
-  5 .debug_info   000005f4  00000000  00000000  00000be8  2**0
+  5 .debug_info   000005f4  00000000  00000000  00000be4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000005a2  00000000  00000000  000011dc  2**0
+  6 .debug_abbrev 000005a2  00000000  00000000  000011d8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000133  00000000  00000000  0000177e  2**0
+  7 .debug_line   00000133  00000000  00000000  0000177a  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_str    00000208  00000000  00000000  000018b1  2**0
+  8 .debug_str    00000208  00000000  00000000  000018ad  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -69,13 +69,13 @@ Disassembly of section .text:
   7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
   80:	05 90       	lpm	r0, Z+
   82:	0d 92       	st	X+, r0
-  84:	aa 32       	cpi	r26, 0x2A	; 42
+  84:	a8 32       	cpi	r26, 0x28	; 40
   86:	b1 07       	cpc	r27, r17
   88:	d9 f7       	brne	.-10     	; 0x80 <__do_copy_data+0xc>
 
 0000008a <__do_clear_bss>:
   8a:	21 e0       	ldi	r18, 0x01	; 1
-  8c:	aa e2       	ldi	r26, 0x2A	; 42
+  8c:	a8 e2       	ldi	r26, 0x28	; 40
   8e:	b1 e0       	ldi	r27, 0x01	; 1
   90:	01 c0       	rjmp	.+2      	; 0x94 <.do_clear_bss_start>
 
@@ -83,7 +83,7 @@ Disassembly of section .text:
   92:	1d 92       	st	X+, r1
 
 00000094 <.do_clear_bss_start>:
-  94:	a0 33       	cpi	r26, 0x30	; 48
+  94:	ae 32       	cpi	r26, 0x2E	; 46
   96:	b2 07       	cpc	r27, r18
   98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
   9a:	0e 94 00 02 	call	0x400	; 0x400 <main>
@@ -537,8 +537,8 @@ Disassembly of section .text:
  410:	0e 94 93 01 	call	0x326	; 0x326 <inic_LCD_4bits>
  414:	80 e0       	ldi	r24, 0x00	; 0
  416:	91 e0       	ldi	r25, 0x01	; 1
- 418:	90 93 2d 01 	sts	0x012D, r25	; 0x80012d <__data_end+0x3>
- 41c:	80 93 2c 01 	sts	0x012C, r24	; 0x80012c <__data_end+0x2>
+ 418:	90 93 2b 01 	sts	0x012B, r25	; 0x80012b <__data_end+0x3>
+ 41c:	80 93 2a 01 	sts	0x012A, r24	; 0x80012a <__data_end+0x2>
  420:	a1 2c       	mov	r10, r1
  422:	b1 2c       	mov	r11, r1
  424:	8e e0       	ldi	r24, 0x0E	; 14
@@ -549,7 +549,7 @@ Disassembly of section .text:
  42e:	89 2e       	mov	r8, r25
  430:	91 e0       	ldi	r25, 0x01	; 1
  432:	99 2e       	mov	r9, r25
- 434:	02 e0       	ldi	r16, 0x02	; 2
+ 434:	00 e4       	ldi	r16, 0x40	; 64
  436:	29 e2       	ldi	r18, 0x29	; 41
  438:	30 e0       	ldi	r19, 0x00	; 0
  43a:	4a e2       	ldi	r20, 0x2A	; 42
@@ -633,8 +633,8 @@ Disassembly of section .text:
  4e0:	61 91       	ld	r22, Z+
  4e2:	71 91       	ld	r23, Z+
  4e4:	af 01       	movw	r20, r30
- 4e6:	80 91 2c 01 	lds	r24, 0x012C	; 0x80012c <__data_end+0x2>
- 4ea:	90 91 2d 01 	lds	r25, 0x012D	; 0x80012d <__data_end+0x3>
+ 4e6:	80 91 2a 01 	lds	r24, 0x012A	; 0x80012a <__data_end+0x2>
+ 4ea:	90 91 2b 01 	lds	r25, 0x012B	; 0x80012b <__data_end+0x3>
  4ee:	0e 94 7c 02 	call	0x4f8	; 0x4f8 <vfprintf>
  4f2:	e2 e0       	ldi	r30, 0x02	; 2
  4f4:	0c 94 39 05 	jmp	0xa72	; 0xa72 <__epilogue_restores__+0x20>
