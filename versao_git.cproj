@@ -121,6 +121,12 @@
     <Compile Include="def_principais.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="dhtxx.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="dhtxx.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="lcd.c">
       <SubType>compile</SubType>
     </Compile>
