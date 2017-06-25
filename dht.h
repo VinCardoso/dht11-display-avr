@@ -18,15 +18,15 @@ References:
 #include <avr/io.h>
 
 //setup port
-#define DHT_DDR DDRC
-#define DHT_PORT PORTC
-#define DHT_PIN PINC
-#define DHT_INPUTPIN PC0
+#define DHT_DDR DDRD
+#define DHT_PORT PORTD
+#define DHT_PIN PIND
+#define DHT_INPUTPIN PD6
 
 //sensor type
 #define DHT_DHT11 1
 #define DHT_DHT22 2
-#define DHT_TYPE DHT_DHT22
+#define DHT_TYPE DHT_DHT11
 
 //enable decimal precision (float)
 #if DHT_TYPE == DHT_DHT11
