@@ -26,23 +26,25 @@ int main(void)
 	// DHT11 Variables
 	unsigned char ec; //Exit code
 	int temp, humid; //Temperature and humidity
+	int try_time = 0;
 	
-	cmd_LCD(0x80,0);
+	
 	
     while (1) 
     {
 		//Request DHT sensor to give it time to prepare data
 		dhtxxconvert( DHTXX_DHT11, &PORTC, &DDRC, &PINC, ( 1 << 0 ) );
-
-		_delay_ms(2000);
+		
+		_delay_ms(1000);
 
 		//Read data from sensor to variables `temp` and `humid` (`ec` is exit code)
 		ec = dhtxxread( DHTXX_DHT11, &PORTC, &DDRC, &PINC, ( 1 << 0 ), &temp, &humid );
-		
-		
-		printf("%d", ec);
-		
-		_delay_ms(1000);
+		try_time = try_time+1;
+		cmd_LCD(0x80,0);
+		printf("Erro: %d - Try:%d", ec, try_time);
+		cmd_LCD(0xC0,0);
+		printf("Temp: %d *C",temp);
+		_delay_ms(2000);
     }
 }
 
