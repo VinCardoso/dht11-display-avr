@@ -7,7 +7,7 @@
 
 #include "def_principais.h"
 #include "lcd.h"
-#include "dhtxx.h"
+#include "dht.h"
 
 FILE lcd_str = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
 
@@ -19,31 +19,63 @@ int main(void)
 	inic_LCD_4bits();
 	stdout=&lcd_str;
 	
+	int try_time = 0;
+	
 	// First Print on Display
 	//cmd_LCD(0x80,0);
 	//printf("Init");
 	
 	// DHT11 Variables
-	unsigned char ec; //Exit code
-	int temp, humid; //Temperature and humidity
-	int try_time = 0;
+	
+	#if DHT_FLOAT == 0
+	int8_t temperature = 0;
+	int8_t humidity = 0;
+	#elif DHT_FLOAT == 1
+	float temperature = 0;
+	float humidity = 0;
+	#endif
+
+	for (;;) {
+		if(dht_gettemperaturehumidity(&temperature, &humidity) != -1) {
+
+			#if DHT_FLOAT == 0
+			itoa(temperature, printbuff, 10);
+			#elif DHT_FLOAT == 1
+			//dtostrf(temperature, 3, 3, printbuff);
+			#endif
+			//uart_puts("temperature: "); uart_puts(printbuff); uart_puts("C");uart_puts("\r\n");
+			#if DHT_FLOAT == 0
+			//itoa(humidity, printbuff, 10);
+			#elif DHT_FLOAT == 1
+			//dtostrf(humidity, 3, 3, printbuff);
+			#endif
+			//uart_puts("humidity: "); uart_puts(printbuff); uart_puts("%RH");uart_puts("\r\n");
+
+			} else {
+			//uart_puts("error"); uart_puts("\r\n");
+			try_time = try_time+1;
+			cmd_LCD(0x80,0);
+			printf("error %d",try_time);
+			
+		}
+
+		//uart_puts("\r\n");
+
+		_delay_ms(1500);
+	}
+
 	
 	
 	
     while (1) 
     {
-		//Request DHT sensor to give it time to prepare data
-		dhtxxconvert( DHTXX_DHT11, &PORTC, &DDRC, &PINC, ( 1 << 0 ) );
-		
-		_delay_ms(1000);
 
-		//Read data from sensor to variables `temp` and `humid` (`ec` is exit code)
-		ec = dhtxxread( DHTXX_DHT11, &PORTC, &DDRC, &PINC, ( 1 << 0 ), &temp, &humid );
+		
 		try_time = try_time+1;
 		cmd_LCD(0x80,0);
-		printf("Erro: %d - Try:%d", ec, try_time);
+		//printf("Erro: %d Try:%d", ec, try_time);
 		cmd_LCD(0xC0,0);
-		printf("Temp: %d *C",temp);
+		//printf("Temp: %d *C",temp);
 		_delay_ms(2000);
     }
 }
