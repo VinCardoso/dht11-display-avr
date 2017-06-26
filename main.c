@@ -10,31 +10,26 @@ int try_time = 0;
 int main(void)
 {
 	DDRD  = 0xff;		// Set PortB as Out for LCD
+	
 	// Init LCD
 	inic_LCD_4bits();
 	stdout=&lcd_str;
 	
-	cmd_LCD(0x80,0);
-	printf("Inicializando..");
-	
     uint8_t data [4];
-    
-
+  
     while(1)
     {
 
-    	uint8_t ret =  fetchData(data);
+    	int8_t resposta = fetchData(data);
     	_delay_ms(1000);
 		
-		
-		 printf("a");
-		 uint8_t check = (data[0] + data[1] + data[2] + data[3]) & 0xFF;
+		 //uint8_t check = (data[0] + data[1] + data[2] + data[3]) & 0xFF;
 
 		 try_time = try_time+1;
 		 cmd_LCD(0x80,0);
-		 printf("Umid: %d Try:%d", data[0],try_time);
+		 printf("Try:%d", resposta,try_time);
 		 cmd_LCD(0xC0,0);
-		 printf("Temp: %d", ret);
+		 printf("Erro: %d", resposta);
 		 
 		 //if (check != data[4]) return 0;
 		 
@@ -54,7 +49,7 @@ int main(void)
 uint8_t fetchData(uint8_t* arr)
 {
     uint8_t data [5];
-    uint8_t cnt, check;
+    uint8_t cnt;
     int8_t i,j;
     
     /******************* Sensor communication start *******************/

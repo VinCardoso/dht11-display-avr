@@ -3,11 +3,9 @@
 
 #define F_CPU 16000000UL
 
-#define DHT_PORT_OUT PORTB
-#define DHT_PORT_IN PINB
-#define DHT_PIN PB3
-
-#define LED PB4
+#define DHT_PORT_OUT PORTD
+#define DHT_PORT_IN PIND
+#define DHT_PIN PD6
 
 #define SET_BIT(byte, bit) ((byte) |= (1UL << (bit)))
 
