@@ -19,21 +19,17 @@ int main(void)
 	
     uint8_t data [4];
     
-    int8_t i;
-    
     initDHT();
     
-    if(fetchData(data))
+    while(1)
     {
-        for(i = data[2]; i >= 0; --i)
-        {
-            SET_BIT(PORTB,LED);
-            _delay_ms(100);
-            
-            CLEAR_BIT(PORTB,LED);
-            _delay_ms(500);
-        }
+
+    	fetchData(data);
+    	_delay_ms(100);
+
     }
+
+    
 
     return 0;
 }
@@ -47,7 +43,7 @@ void initDHT(void)
        1-2 seconds to get ready when first getting power, so we
        wait
      */
-    _delay_ms(2000);
+    _delay_ms(1000);
 }
 
 
@@ -140,12 +136,12 @@ uint8_t fetchData(uint8_t* arr)
     /********************* Sensor communication end *********************/
     
     check = (data[0] + data[1] + data[2] + data[3]) & 0xFF;
-	
-	try_time = try_time+1;
-	cmd_LCD(0x80,0);
-	printf("Umid: %d Try:%d", data[0],try_time);
-	cmd_LCD(0xC0,0);
-	printf("Temp: %d", data[2]);
+
+    	try_time = try_time+1;
+		cmd_LCD(0x80,0);
+		printf("Umid: %d Try:%d", data[0],try_time);
+		cmd_LCD(0xC0,0);
+		printf("Temp: %d", data[2]);
     
     if (check != data[4]) return 0;
     
