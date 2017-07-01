@@ -15,17 +15,24 @@ void write_bit_1w(uint8_t bit_1w);
 uint8_t reset_1w()	//inicializa os dispositivos no barramento
 {
 	DQ_OUTPUT();			//DQ como saída
-	CLR_DQ();				//DQ em nível zero por 480us
-	_delay_us(480);
+	CLR_DQ();				//DQ em nível zero por 18ms
+	_delay_ms(1);
+	SET_DQ();
+	_delay_us(40);
 
 	DQ_INPUT();				//DQ como entrada, o resistor de pull-up mantém DQ em nível alto
-	_delay_us(60);
 
-	if(TST_DQ())			//se nao detectou a presença já retorna 1
-	return 1;
+	if(TST_DQ()){
+		return 1;
+	}else{
+		return 0;
+	}
+
+	// if(TST_DQ())			//se nao detectou a presença já retorna 1
+	// return 1;
 	
-	_delay_us(420);			//o pulso de presença pode ter 240 us
-	return 0;				//retorna 0 para indicar sucesso
+	// _delay_us(80);			//o pulso de presença pode ter 240 us
+	// return 0;				//retorna 0 para indicar sucesso
 }
 
 
@@ -33,7 +40,7 @@ void power_1w()				//força o barramento em nível alto.
 {							//utilizado com dispositivos alimentados no modo parasita
 	DQ_OUTPUT();
 	SET_DQ();
-	_delay_ms(750);
+	_delay_ms(10);
 	DQ_INPUT();				//pull-up externo
 }
 
