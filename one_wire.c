@@ -16,14 +16,16 @@ uint8_t reset_1w()	//inicializa os dispositivos no barramento
 {
 	DQ_OUTPUT();			//DQ como saída
 	CLR_DQ();				//DQ em nível zero por 18ms
-	_delay_ms(1);
+	_delay_ms(18);
 	SET_DQ();
 	_delay_us(40);
 
 	DQ_INPUT();				//DQ como entrada, o resistor de pull-up mantém DQ em nível alto
 
+	_delay_us(54);
+
 	if(TST_DQ()){
-		return 1;
+		_delay_us(80);
 	}else{
 		return 0;
 	}

@@ -13,7 +13,7 @@ FILE lcd_str = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
 
 int main(void)
 {
-    uint8_t temp, temp2,temp3,temp4;
+    uint8_t int_um,dec_um,int_temp,dec_temp;
 	DDRD  = 0xff;		// Set PortD as Out
 	
 	// Init LCD
@@ -27,7 +27,22 @@ int main(void)
 	
     while (1) 
     {
-        //reset_1w();
+        char buffer[1];
+
+        reset_1w();
+        int_um = read_byte_1w();
+        dec_um = read_byte_1w();
+        int_temp = read_byte_1w();
+        dec_temp = read_byte_1w();
+        int a = 0;
+        cmd_LCD(0x80,0);
+        while(a<40){
+            printf("%c",read_byte_1w());
+            a=a++;
+        }
+        _delay_ms(2000)
+        a=0;
+
 
         //reset_1w();                     //reset do sensor (a resposta de presença é retornada mas não avaliada).
         //write_byte_1w(0xCC);            //comando para pular ROM (só 1 dispositivo no barramento).
@@ -50,9 +65,11 @@ int main(void)
         // printf("%p\r", (void*)temp4);
         // _delay_ms(500);
 
-        cmd_LCD(0x80,0);
-        printf("%d\n", reset_1w());
-        _delay_ms(100);
+        // cmd_LCD(0x80,0);
+        // printf("%s . %d                    \n", buffer, int_um);
+        // cmd_LCD(0xC0,0);
+        // printf("%d.%d                    \n", dec_temp, int_temp);
+        // _delay_ms(100);
 
 
 		
