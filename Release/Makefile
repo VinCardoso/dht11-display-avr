@@ -38,7 +38,8 @@ SUBDIRS :=
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../lcd.c \
-../main.c
+../main.c \
+../one_wire.c
 
 
 PREPROCESSING_SRCS += 
@@ -49,19 +50,23 @@ ASM_SRCS +=
 
 OBJS +=  \
 lcd.o \
-main.o
+main.o \
+one_wire.o
 
 OBJS_AS_ARGS +=  \
 lcd.o \
-main.o
+main.o \
+one_wire.o
 
 C_DEPS +=  \
 lcd.d \
-main.d
+main.d \
+one_wire.d
 
 C_DEPS_AS_ARGS +=  \
 lcd.d \
-main.d
+main.d \
+one_wire.d
 
 OUTPUT_FILE_PATH +=versao_git.elf
 
@@ -77,6 +82,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 
