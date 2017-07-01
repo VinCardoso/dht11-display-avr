@@ -5,12 +5,12 @@
 
 //Definições para facilitar a troca dos pinos do hardware e facilitar a re-programação
 
-#define DADOS_LCD    	PORTB  	//4 bits de dados do LCD no PORTD
+#define DADOS_LCD    	PORTD  	//4 bits de dados do LCD no PORTD
 #define nibble_dados	0		//0 para via de dados do LCD nos 4 LSBs do PORT empregado (Px0-D4, Px1-D5, Px2-D6, Px3-D7)
 //1 para via de dados do LCD nos 4 MSBs do PORT empregado (Px4-D4, Px5-D5, Px6-D6, Px7-D7)
-#define CONTR_LCD 		PORTB  	//PORT com os pinos de controle do LCD (pino R/W em 0).
-#define E    			PB4     //pino de habilitação do LCD (enable)
-#define RS   			PB5    //pino para informar se o dado é uma instrução ou caractere
+#define CONTR_LCD 		PORTD  	//PORT com os pinos de controle do LCD (pino R/W em 0).
+#define E    			PD4     //pino de habilitação do LCD (enable)
+#define RS   			PD5    //pino para informar se o dado é uma instrução ou caractere
 
 #define tam_vetor_	5	//número de digitos individuais para a conversão por ident_num()
 #define conv_ascii	48	//48 se ident_num() deve retornar um número no formato ASCII (0 para formato normal)

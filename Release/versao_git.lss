@@ -95,45 +95,45 @@ Disassembly of section .text:
 000000a6 <cmd_LCD>:
   a6:	61 11       	cpse	r22, r1
   a8:	02 c0       	rjmp	.+4      	; 0xae <cmd_LCD+0x8>
-  aa:	2d 98       	cbi	0x05, 5	; 5
+  aa:	5d 98       	cbi	0x0b, 5	; 11
   ac:	01 c0       	rjmp	.+2      	; 0xb0 <cmd_LCD+0xa>
-  ae:	2d 9a       	sbi	0x05, 5	; 5
-  b0:	95 b1       	in	r25, 0x05	; 5
+  ae:	5d 9a       	sbi	0x0b, 5	; 11
+  b0:	9b b1       	in	r25, 0x0b	; 11
   b2:	90 7f       	andi	r25, 0xF0	; 240
   b4:	28 2f       	mov	r18, r24
   b6:	22 95       	swap	r18
   b8:	2f 70       	andi	r18, 0x0F	; 15
   ba:	92 2b       	or	r25, r18
-  bc:	95 b9       	out	0x05, r25	; 5
+  bc:	9b b9       	out	0x0b, r25	; 11
   be:	95 e0       	ldi	r25, 0x05	; 5
   c0:	9a 95       	dec	r25
   c2:	f1 f7       	brne	.-4      	; 0xc0 <cmd_LCD+0x1a>
   c4:	00 00       	nop
-  c6:	2c 9a       	sbi	0x05, 4	; 5
+  c6:	5c 9a       	sbi	0x0b, 4	; 11
   c8:	95 e0       	ldi	r25, 0x05	; 5
   ca:	9a 95       	dec	r25
   cc:	f1 f7       	brne	.-4      	; 0xca <cmd_LCD+0x24>
   ce:	00 00       	nop
-  d0:	2c 98       	cbi	0x05, 4	; 5
+  d0:	5c 98       	cbi	0x0b, 4	; 11
   d2:	90 ef       	ldi	r25, 0xF0	; 240
   d4:	9a 95       	dec	r25
   d6:	f1 f7       	brne	.-4      	; 0xd4 <cmd_LCD+0x2e>
-  d8:	95 b1       	in	r25, 0x05	; 5
+  d8:	9b b1       	in	r25, 0x0b	; 11
   da:	90 7f       	andi	r25, 0xF0	; 240
   dc:	28 2f       	mov	r18, r24
   de:	2f 70       	andi	r18, 0x0F	; 15
   e0:	92 2b       	or	r25, r18
-  e2:	95 b9       	out	0x05, r25	; 5
+  e2:	9b b9       	out	0x0b, r25	; 11
   e4:	95 e0       	ldi	r25, 0x05	; 5
   e6:	9a 95       	dec	r25
   e8:	f1 f7       	brne	.-4      	; 0xe6 <cmd_LCD+0x40>
   ea:	00 00       	nop
-  ec:	2c 9a       	sbi	0x05, 4	; 5
+  ec:	5c 9a       	sbi	0x0b, 4	; 11
   ee:	95 e0       	ldi	r25, 0x05	; 5
   f0:	9a 95       	dec	r25
   f2:	f1 f7       	brne	.-4      	; 0xf0 <cmd_LCD+0x4a>
   f4:	00 00       	nop
-  f6:	2c 98       	cbi	0x05, 4	; 5
+  f6:	5c 98       	cbi	0x0b, 4	; 11
   f8:	90 ef       	ldi	r25, 0xF0	; 240
   fa:	9a 95       	dec	r25
   fc:	f1 f7       	brne	.-4      	; 0xfa <cmd_LCD+0x54>
@@ -150,8 +150,8 @@ Disassembly of section .text:
  112:	08 95       	ret
 
 00000114 <inic_LCD_4bits>:
- 114:	2d 98       	cbi	0x05, 5	; 5
- 116:	2c 98       	cbi	0x05, 4	; 5
+ 114:	5d 98       	cbi	0x0b, 5	; 11
+ 116:	5c 98       	cbi	0x0b, 4	; 11
  118:	2f ef       	ldi	r18, 0xFF	; 255
  11a:	89 ef       	ldi	r24, 0xF9	; 249
  11c:	90 e0       	ldi	r25, 0x00	; 0
@@ -161,20 +161,20 @@ Disassembly of section .text:
  124:	e1 f7       	brne	.-8      	; 0x11e <inic_LCD_4bits+0xa>
  126:	00 c0       	rjmp	.+0      	; 0x128 <inic_LCD_4bits+0x14>
  128:	00 00       	nop
- 12a:	85 b1       	in	r24, 0x05	; 5
+ 12a:	8b b1       	in	r24, 0x0b	; 11
  12c:	80 7f       	andi	r24, 0xF0	; 240
  12e:	83 60       	ori	r24, 0x03	; 3
- 130:	85 b9       	out	0x05, r24	; 5
+ 130:	8b b9       	out	0x0b, r24	; 11
  132:	25 e0       	ldi	r18, 0x05	; 5
  134:	2a 95       	dec	r18
  136:	f1 f7       	brne	.-4      	; 0x134 <inic_LCD_4bits+0x20>
  138:	00 00       	nop
- 13a:	2c 9a       	sbi	0x05, 4	; 5
+ 13a:	5c 9a       	sbi	0x0b, 4	; 11
  13c:	85 e0       	ldi	r24, 0x05	; 5
  13e:	8a 95       	dec	r24
  140:	f1 f7       	brne	.-4      	; 0x13e <inic_LCD_4bits+0x2a>
  142:	00 00       	nop
- 144:	2c 98       	cbi	0x05, 4	; 5
+ 144:	5c 98       	cbi	0x0b, 4	; 11
  146:	90 ef       	ldi	r25, 0xF0	; 240
  148:	9a 95       	dec	r25
  14a:	f1 f7       	brne	.-4      	; 0x148 <inic_LCD_4bits+0x34>
@@ -188,12 +188,12 @@ Disassembly of section .text:
  15a:	9a 95       	dec	r25
  15c:	f1 f7       	brne	.-4      	; 0x15a <inic_LCD_4bits+0x46>
  15e:	00 00       	nop
- 160:	2c 9a       	sbi	0x05, 4	; 5
+ 160:	5c 9a       	sbi	0x0b, 4	; 11
  162:	25 e0       	ldi	r18, 0x05	; 5
  164:	2a 95       	dec	r18
  166:	f1 f7       	brne	.-4      	; 0x164 <inic_LCD_4bits+0x50>
  168:	00 00       	nop
- 16a:	2c 98       	cbi	0x05, 4	; 5
+ 16a:	5c 98       	cbi	0x0b, 4	; 11
  16c:	80 ef       	ldi	r24, 0xF0	; 240
  16e:	8a 95       	dec	r24
  170:	f1 f7       	brne	.-4      	; 0x16e <inic_LCD_4bits+0x5a>
@@ -207,29 +207,29 @@ Disassembly of section .text:
  180:	9a 95       	dec	r25
  182:	f1 f7       	brne	.-4      	; 0x180 <inic_LCD_4bits+0x6c>
  184:	00 00       	nop
- 186:	2c 9a       	sbi	0x05, 4	; 5
+ 186:	5c 9a       	sbi	0x0b, 4	; 11
  188:	25 e0       	ldi	r18, 0x05	; 5
  18a:	2a 95       	dec	r18
  18c:	f1 f7       	brne	.-4      	; 0x18a <inic_LCD_4bits+0x76>
  18e:	00 00       	nop
- 190:	2c 98       	cbi	0x05, 4	; 5
+ 190:	5c 98       	cbi	0x0b, 4	; 11
  192:	80 ef       	ldi	r24, 0xF0	; 240
  194:	8a 95       	dec	r24
  196:	f1 f7       	brne	.-4      	; 0x194 <inic_LCD_4bits+0x80>
- 198:	85 b1       	in	r24, 0x05	; 5
+ 198:	8b b1       	in	r24, 0x0b	; 11
  19a:	80 7f       	andi	r24, 0xF0	; 240
  19c:	82 60       	ori	r24, 0x02	; 2
- 19e:	85 b9       	out	0x05, r24	; 5
+ 19e:	8b b9       	out	0x0b, r24	; 11
  1a0:	95 e0       	ldi	r25, 0x05	; 5
  1a2:	9a 95       	dec	r25
  1a4:	f1 f7       	brne	.-4      	; 0x1a2 <inic_LCD_4bits+0x8e>
  1a6:	00 00       	nop
- 1a8:	2c 9a       	sbi	0x05, 4	; 5
+ 1a8:	5c 9a       	sbi	0x0b, 4	; 11
  1aa:	25 e0       	ldi	r18, 0x05	; 5
  1ac:	2a 95       	dec	r18
  1ae:	f1 f7       	brne	.-4      	; 0x1ac <inic_LCD_4bits+0x98>
  1b0:	00 00       	nop
- 1b2:	2c 98       	cbi	0x05, 4	; 5
+ 1b2:	5c 98       	cbi	0x0b, 4	; 11
  1b4:	80 ef       	ldi	r24, 0xF0	; 240
  1b6:	8a 95       	dec	r24
  1b8:	f1 f7       	brne	.-4      	; 0x1b6 <inic_LCD_4bits+0xa2>
@@ -258,7 +258,7 @@ Disassembly of section .text:
 
 000001ee <main>:
  1ee:	8f ef       	ldi	r24, 0xFF	; 255
- 1f0:	84 b9       	out	0x04, r24	; 4
+ 1f0:	8a b9       	out	0x0a, r24	; 10
  1f2:	0e 94 8a 00 	call	0x114	; 0x114 <inic_LCD_4bits>
  1f6:	80 e0       	ldi	r24, 0x00	; 0
  1f8:	91 e0       	ldi	r25, 0x01	; 1

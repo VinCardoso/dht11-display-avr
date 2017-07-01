@@ -12,7 +12,7 @@ FILE lcd_str = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
 
 int main(void)
 {
-	DDRB  = 0xff;		// Set PortB as Out
+	DDRD  = 0xff;		// Set PortD as Out
 	
 	// Init LCD
 	inic_LCD_4bits();
