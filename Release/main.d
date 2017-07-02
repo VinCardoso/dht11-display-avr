@@ -19,7 +19,7 @@ main.d main.o: .././main.c .././def_principais.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\ctype.h \
- .././lcd.h .././one_wire.h
+ .././lcd.h .././one_wire.h .././DHT.h
 
 .././def_principais.h:
 
@@ -66,3 +66,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 .././lcd.h:
 
 .././one_wire.h:
+
+.././DHT.h:

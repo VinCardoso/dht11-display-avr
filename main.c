@@ -8,71 +8,182 @@
 #include "def_principais.h"
 #include "lcd.h"
 #include "one_wire.h"
+#include "DHT.h"
+
+// macros privadas
+#define DQ_OUTPUT()		set_bit(DDRx,DQ)
+#define DQ_INPUT()		clr_bit(DDRx,DQ)
+#define CLR_DQ()		clr_bit(PORTx,DQ)
+#define SET_DQ()		set_bit(PORTx,DQ)
+#define TST_DQ()		tst_bit(PINx,DQ)
+
 
 FILE lcd_str = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
 
 int main(void)
 {
-    uint8_t int_um,dec_um,int_temp,dec_temp;
-	DDRD  = 0xff;		// Set PortD as Out
-	
+
+    int i,t;
+
 	// Init LCD
+    DDRD  = 0xff;
 	inic_LCD_4bits();
 	stdout=&lcd_str;
-	
-	// First Print on Display
-	//cmd_LCD(0x80,0);
-	//printf("Inicializando..");
-    power_1w();
+    // Viriáveis
+    // int cont=0;
+
+    //uint8_t data [4];
+    //int i,j,cnt;
+    int cont=0;
+
+    
+
+    // Mensagem Iniciando LCD
+	/* cmd_LCD(0x80,0);
+	printf("Inicializando..");
+    _delay_ms(1000);
+    cmd_LCD(0x80,0);
+    printf("                                  "); */
 	
     while (1) 
     {
-        char buffer[1];
 
-        reset_1w();
-        int_um = read_byte_1w();
-        dec_um = read_byte_1w();
-        int_temp = read_byte_1w();
-        dec_temp = read_byte_1w();
-        int a = 0;
-        cmd_LCD(0x80,0);
-        while(a<40){
-            printf("%c",read_byte_1w());
-            a=a++;
+        //TCCR0B = (1<<CS01); // Preescaler 8 (0.5us por bit)
+        //TCCR0B = (1<<CS02)|(1<<CS00); // Preescaler 1024 (64us por bit)
+
+        uint8_t data;
+        
+        // Enviar comando
+        DQ_OUTPUT();            //DQ como saída
+        CLR_DQ();               //DQ em nível zero 
+        _delay_ms(19);      //Por 19 ms
+        SET_DQ();               //DQ em nível alto
+        DQ_INPUT();             //DQ como entrada, o resistor de pull-up mantém DQ em nível alto
+
+        //TCCR0B = (1<<CS01); // Preescaler 8 (0.5us por bit)
+        
+
+        // if(i=0;i<5;i++){
+        //     if(j=7;j>=0;j--){
+
+        //     }
+        // }
+
+        // while(TST_DQ());
+        // while(!TST_DQ());
+
+        
+        
+        
+        // /* Then wait for the second response to finish, high ~80µs */
+        // while(IS_SET(DHT_PORT_IN,DHT_PIN))
+        // { if (TCNT0 >= 100) return 0; }
+
+        
+        
+        // cmd_LCD(0x80,0);
+        while(TST_DQ());
+        while(!TST_DQ());
+
+
+        for (i = 8; i > 0 ; --i){
+
+            cont=0;
+
+            while(!TST_DQ());
+            
+            while(TST_DQ()){
+                cont = ++cont;
+                _delay_us(1);
+            }
+
+            if(cont >= 5 && cont <= 18)
+            { CLEAR_BIT(data,i); }
+
+            else if (cont >= 20 && cont <= 65)
+            { SET_BIT(data,i); }
+
         }
-        _delay_ms(2000)
-        a=0;
+
+        cmd_LCD(0x80,0);
+        printf("%d ", data);
+        
+        
 
 
-        //reset_1w();                     //reset do sensor (a resposta de presença é retornada mas não avaliada).
-        //write_byte_1w(0xCC);            //comando para pular ROM (só 1 dispositivo no barramento).
-        //write_byte_1w(0x44);            //manda iniciar a conversão
 
-        //reset_1w();
-        //write_byte_1w(0xCC);
-        //write_byte_1w(0xBE);            //avisa que quer ler a memória
+        
+    
+        // printf("%d", data[1]);
 
-        //temp = read_byte_1w(); 
-        //temp2 = read_byte_1w(); 
-        //temp3 = read_byte_1w(); 
-        //temp4 = read_byte_1w();     //só interesse em ler os dois bytes da temperatura
+        _delay_ms(500);
 
-        // cmd_LCD(0x80,0);
-        // printf("%p\r", (void*)temp);
-        // printf("%p\r", (void*)temp2);
-        // cmd_LCD(0xC0,0);
-        // printf("%p\r", (void*)temp3);
-        // printf("%p\r", (void*)temp4);
-        // _delay_ms(500);
+        /* if(TST_DQ()){
 
-        // cmd_LCD(0x80,0);
-        // printf("%s . %d                    \n", buffer, int_um);
-        // cmd_LCD(0xC0,0);
-        // printf("%d.%d                    \n", dec_temp, int_temp);
-        // _delay_ms(100);
+            printf("Alto");
+
+            while(TST_DQ()){
+                i = i+1;
+                total = i;
+                _delay_ms(1);
+            }
+            cmd_LCD(0xC0,0);
+            printf("%d\n", total);
+
+            while(!TST_DQ());
 
 
-		
+            while(TST_DQ()){
+                i = i++;
+                total = i;
+                _delay_ms(1);
+            }
+
+            printf("%d\n", total); */
+
+            // for (i = 0; i < 5; ++i)
+            // {
+            //     for(j = 7; j >= 0; --j)
+            //     {
+                    
+            //         /* First there is always a 50µs low period */
+            //         while(!TST_DQ());
+                    
+            //         /* Then the data signal is sent. 26 to 28µs (ideally)
+            //          indicate a low bit, and around 70µs a high bit */
+            //         while(TST_DQ())
+            //         {
+            //             cont = cont++;
+            //             _delay_us(1);
+            //         }
+            //         cmd_LCD(0x80,0);
+            //         if(cont<25){
+            //             printf("0\n");
+            //         }else if(cont<75){
+            //             printf("1\n");
+            //         }else{
+            //             printf("Terminou\n");
+            //         }
+                    
+            //         /* Store the value now so that the whole checking doesn't
+            //          move the TCNT0 forward by too much to make the data look
+            //          bad */
+            //         /*cnt = TCNT0;
+                    
+            //         if (cnt >= 20 && cnt <= 35)
+            //         { CLEAR_BIT(data[i],j); }
+                    
+            //         else if (cnt >= 60 && cnt <= 80)
+            //         { SET_BIT(data[i],j); }
+                    
+            //         else return 0;*/
+            //     }
+            // }
+        /*}else{
+            printf("Beixo");
+        }
+            
+        _delay_ms(100);*/
+
     }
 }
-
