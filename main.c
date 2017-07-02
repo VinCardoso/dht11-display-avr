@@ -51,7 +51,7 @@ int main(void)
         //TCCR0B = (1<<CS01); // Preescaler 8 (0.5us por bit)
         //TCCR0B = (1<<CS02)|(1<<CS00); // Preescaler 1024 (64us por bit)
 
-        uint8_t data;
+        uint8_t data,data2,data3,data4;
         
         // Enviar comando
         DQ_OUTPUT();            //DQ como saída
@@ -83,8 +83,7 @@ int main(void)
         
         // cmd_LCD(0x80,0);
         while(TST_DQ());
-        while(!TST_DQ());
-
+        while(!TST_DQ());        
 
         for (i = 8; i > 0 ; --i){
 
@@ -105,8 +104,67 @@ int main(void)
 
         }
 
+        for (i = 8; i > 0 ; --i){
+
+            cont=0;
+
+            while(!TST_DQ());
+            
+            while(TST_DQ()){
+                cont = ++cont;
+                _delay_us(1);
+            }
+
+            if(cont >= 5 && cont <= 18)
+            { CLEAR_BIT(data2,i); }
+
+            else if (cont >= 20 && cont <= 65)
+            { SET_BIT(data2,i); }
+
+        }
+
+        for (i = 8; i > 0 ; --i){
+
+            cont=0;
+
+            while(!TST_DQ());
+            
+            while(TST_DQ()){
+                cont = ++cont;
+                _delay_us(1);
+            }
+
+            if(cont >= 5 && cont <= 18)
+            { CLEAR_BIT(data3,i); }
+
+            else if (cont >= 20 && cont <= 65)
+            { SET_BIT(data3,i); }
+
+        }
+
+        for (i = 8; i > 0 ; --i){
+
+            cont=0;
+
+            while(!TST_DQ());
+            
+            while(TST_DQ()){
+                cont = ++cont;
+                _delay_us(1);
+            }
+
+            if(cont >= 5 && cont <= 18)
+            { CLEAR_BIT(data4,i); }
+
+            else if (cont >= 20 && cont <= 65)
+            { SET_BIT(data4,i); }
+
+        }
+
         cmd_LCD(0x80,0);
-        printf("%d ", data);
+        printf("Umid: %d%%", data);
+        cmd_LCD(0xC0,0);
+        printf("Temp: %d*C ", data3);
         
         
 
